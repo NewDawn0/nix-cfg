@@ -14,7 +14,6 @@ in {
       enableNixpkgsReleaseCheck = false;
     };
     programs = { };
-    imports = [ ./zsh.nix ./starship.nix ./tmux.nix ./git.nix ];
-    # imports = [ ./zsh.nix ./starship.nix ./tmux.nix ./git.nix ./alacritty.nix ];
+    imports = [ ./zsh.nix ./starship.nix ./tmux.nix ./git.nix ./alacritty.nix ];
   };
 }
