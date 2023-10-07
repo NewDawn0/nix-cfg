@@ -33,6 +33,7 @@ in {
     push = "${pkgs.git}/bin/git push";
     pull = "${pkgs.git}/bin/git pull";
     commit = "${pkgs.git}/bin/git commit -m";
+    ammend = "${pkgs.git}/bin/git commit --amend -m";
     git-root = "${pkgs.git}/bin/git rev-parse --show-toplevel";
     git-log = "${pkgs.git}/bin/git log --oneline --all";
     wmoff = "launchctl unload ~/Library/LaunchAgents/org.nixos.yabai.plist";
