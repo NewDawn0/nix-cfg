@@ -1,0 +1,91 @@
+=========================
+1.  Installation notes
+=========================
+
+=== Table of contents ===
+1) Installing NIX on a darwin system
+2) Installing my config
+3) Uninstalling NIX
+
+=== Installing NIX on a darwin system ===
+@INFO: Prerequisites: Xcode CLI tools
+$ xcode-select --install
+
+@INFO: Install nix using the detarminate systems installer or the nix install pick either one
+1) $ sh <(curl -L https://nixos.org/nix/install)
+2) $ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+
+@INFO: Install nix-darwin
+@INFO: Open a new shell for this step 
+$ cd /tmp
+$ sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-darwin
+$ sudo mv /etc/zshrc /etc/zshrc.before-nix-darwin
+$ sudo mv /etc/bashrc /etc/bashrc.before-nix-darwin
+$ nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+$ ./result/bin/darwin-installer
+
+@INFO: Install home-manager
+@INFO: Open a new shell for this step
+$ nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+$ nix-channel --update
+
+@NOTE: Fix if a nix SSL error occurs
+$ sudo launchctl setenv NIX_SSL_CERT_FILE $NIX_SSL_CERT_FILE
+$ sudo launchctl kickstart -k system/org.nixos.nix-daemon
+
+@NOTE: Fix if $HOME is not owned by you when running command as sudo
+$ [TODO]
+
+=== Installing my config ===
+@INFO: Clone the repo
+$ git clone github.com/NewDawn0/sysconfig ~/.nix-cfg
+
+@INFO: Install the config to install the brew-manager package
+$ cd ~/.nix-cfg
+$ nix flake update
+$ darwin-rebuild switch --flake .
+
+@INFO: Install home-brew
+$ brew-manager install
+
+@INFO: Install the config with brew
+$ darwin-rebuild switch --flake .
+
+=== Uninstalling NIX ===
+@INFO: Related article `https://iohk.zendesk.com/hc/en-us/articles/4415830650265-Uninstall-nix-on-MacOS`
+@INFO: Remove Home-manager
+$ nix-channel --remove home-manager
+
+@INFO: Uninstall NIX & nix-darwin
+$ cd /tmp/
+$ nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A uninstaller
+$ ./result/bin/darwin-uninstaller
+
+@INFO: Remove darwin files
+$ sudo rm /etc/zshrc /etc/bashrc /etc/zshrc.before-darwin /etc/bashrc.before-darwin /etc/nix/nix.conf /etc/nix/nix.conf.before-darwin /etc/profile.d/nix.sh /etc/profile.d/nix.sh.backup-before-nix /etc/zsh/zshrc.backup-before-nix /etc/bashrc.backup-before-nix /etc/bash.bashrc.backup-before-nix /etc/zsh/zshrc.backup-before-nix
+
+@INFO: Stop nix from being auto mounted
+@INFO: Remove the line `LABEL=Nix\040stORE /nix apfs rw,nobrowse`
+$ sudo vifs
+
+@INFO: Make /nix editable
+$ sudo rm -rf /etc/synthetic.conf
+
+@INFO: Remove launch services
+$ sudo launchctl unload /Library/LaunchDaemon/org.nixos.nix-daemon.plist
+$ sudo launchctl unload /Library/LaunchDaemon/org.nixos.darwin-store.plist
+$ sudo rm /Library/LaunchDaemons/org.nixos.nix-daemon.plist
+$ sudo rm /Library/LaunchDaemons/org.nixos.darwin-store.plist
+$ sudo rm -rf /etc/nix/ ~/.nix-profile ~/.nix-defexpr ~/.nix-channels ~/.nixpkgs
+
+@INFO: Remove nix build groups
+$ sudo dscl . delete /Groups/nixbld
+$ for i in $(seq 1 32); do sudo dscl . -delete /Users/_nixbld$i; done
+
+@NOTE: You should propably reboot now
+$ sudo reboot
+
+@INFO: Delete nix partition and /nix
+$ sudo diskutil unmountDisk force /nix
+$ sudo diskutil apfs deleteVolume /nix
+$ sudo rm -rf /nix/
