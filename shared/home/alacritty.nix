@@ -6,6 +6,13 @@ in {
   programs.alacritty = {
     enable = true;
     settings = {
+      decorations = "none";
+      opacity = 0.95;
+      startup_mode = "Windowed";
+      title = "Term";
+      dynamic_title = true;
+      option_as_alt = "None";
+      scrolling.history = 10000;
       window = {
         dimensions = {
           lines = 24;
@@ -22,8 +29,11 @@ in {
         dynamic_title = true;
         option_as_alt = "None";
       };
-      scrolling.history = 10000;
-      working_directory = "\${home}"; # Not working
+      shell = {
+        program = "${pkgs.zsh}/bin/zsh";
+        # args = [ "-l" "-c" "tmux" ];
+        args = [ "-l" ];
+      };
       font = {
         normal = {
           family = "${font}";
