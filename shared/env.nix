@@ -51,6 +51,7 @@ in {
     EDITOR = "nvim";
     PAGER = "less";
     LANG = "en_US.UTF-8";
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=${conf.theme.extra.purple},bg=none";
     pathsToLink = [
       "/Applications"
       "/nix/var/nix/profiles/default/bin/"
