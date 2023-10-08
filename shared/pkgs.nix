@@ -38,6 +38,7 @@ with pkgs; [
   colima
   docker
   fd
+  figlet
   fzf
   jq
   ripgrep
