@@ -38,7 +38,7 @@ $ [TODO]
 
 === Installing my config ===
 @INFO: Clone the repo
-$ git clone github.com/NewDawn0/sysconfig ~/.nix-cfg
+$ git clone github.com/NewDawn0/nix-cfg ~/.nix-cfg
 
 @INFO: Install the config to install the brew-manager package
 $ cd ~/.nix-cfg
