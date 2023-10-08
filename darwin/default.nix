@@ -1,14 +1,14 @@
 { pkgs, ... }: {
   services.nix-daemon.enable = true;
-  imports = [ ../shared/nix.nix ./system.nix ./brew.nix ];
+  imports = [ ../shared/nix.nix ./system.nix ./brew.nix ./skhd-custom.nix ];
   environment = import ../shared/env.nix { inherit pkgs; };
 
   fonts = import ../shared/fonts.nix { inherit pkgs; };
   services = {
     emacs.enable = true;
-    skhd = import ./skhd.nix { inherit pkgs; }; # Currently broken :(
+    # skhd = import ./skhd.nix { inherit pkgs; }; # Currently broken :(
     yabai = import ./yabai.nix { inherit pkgs; };
-    khd = import ./khd.nix { inherit pkgs; };
+    # khd = import ./khd.nix { inherit pkgs; };
     # spacebar = import ./spacebar.nix { inherit pkgs; };
   };
   programs = {
