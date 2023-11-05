@@ -15,6 +15,7 @@
       Xcode = 497799835;
       Shazam = 897118787;
     };
+    brews = [ "ollama" ];
     casks = import ./casks.nix;
   };
 }

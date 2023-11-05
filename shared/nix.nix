@@ -1,5 +1,5 @@
 { pkgs, ... }:
-let conf = import ./conf.nix;
+let conf = import ../conf.nix;
 in {
   # Nix config
   nix = {

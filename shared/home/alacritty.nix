@@ -1,10 +1,8 @@
 { pkgs, ... }:
-let
-  conf = import ../conf.nix;
-  font = "FiraCode Nerd Font";
+let conf = import ../../conf.nix;
 in {
   programs.alacritty = {
-    enable = true;
+    enable = conf.home-mods.alacritty;
     settings = {
       decorations = "none";
       opacity = 0.95;
@@ -36,19 +34,19 @@ in {
       };
       font = {
         normal = {
-          family = "${font}";
+          family = "${conf.font}";
           style = "Regular";
         };
         bold = {
-          family = "${font}";
+          family = "${conf.font}";
           style = "Regular";
         };
         italic = {
-          family = "${font}";
+          family = "${conf.font}";
           style = "Regular";
         };
         bold_italic = {
-          family = "${font}";
+          family = "${conf.font}";
           style = "Regular";
         };
         size = 12.0;

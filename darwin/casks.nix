@@ -1,6 +1,5 @@
 [
   # Communication Tools
-  "microsoft-teams"
   "microsoft-excel"
   "microsoft-powerpoint"
   "microsoft-outlook"
@@ -11,6 +10,8 @@
   "appcleaner"
   "balenaetcher"
   "raycast"
+  "mactex"
+  "skim"
 
   # Entertainment Tools
   "blender"
@@ -27,5 +28,4 @@
 
   # Browsers
   "firefox"
-  # "orion"
 ]

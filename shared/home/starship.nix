@@ -5,9 +5,10 @@ let
     orange = "#ffa500";
     green = "#a6da95";
   };
+  conf = import ../../conf.nix;
 in {
   programs.starship = {
-    enable = true;
+    enable = conf.home-mods.starship;
     settings = {
       add_newline = false;
       command_timeout = 2000;

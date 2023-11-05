@@ -37,6 +37,7 @@
     # Unload macOS WM
     launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist > /dev/null 2>&1 &
     # Rules
+    yabai -m rule --add app="^Microsoft Outlook$" manage=on
     yabai -m rule --add app="^(Raycast|Font Book|Calculator|Software Update|Dictionary|System Preferences|zoom.us|Archive Utility|Python|App Store|Activity Monitor)$" manage=off layer=above
     yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
     yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off

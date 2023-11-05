@@ -1,5 +1,5 @@
 { pkgs, ... }:
-let conf = import ../shared/conf.nix;
+let conf = import ../conf.nix;
 in {
   documentation = {
     enable = true;
@@ -12,9 +12,6 @@ in {
     computerName = "${conf.hostname}";
     hostName = "${conf.hostname}";
     localHostName = "${conf.hostname}";
-    dns = [ "8.8.8.8" "208.67.220.220" "208.67.222.222" ];
-    knownNetworkServices =
-      [ "USB 10/100/1000 LAN" "Thunderbolt Bridge" "Wi-Fi" "iPhone USB" ];
   };
   system = {
     stateVersion = 4;
@@ -104,7 +101,7 @@ in {
       };
       screencapture = {
         disable-shadow = false;
-        location = "${conf.pic-dir}";
+        location = "${conf.darwin.pic-dir}";
         type = "png";
       };
       screensaver.askForPassword = true;

@@ -1,6 +1,8 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }:
+let conf = import ../../conf.nix;
+in {
   programs.zsh = {
-    enable = true;
+    enable = conf.home-mods.zsh;
     autocd = false;
     package = pkgs.zsh;
     dotDir = ".config/zsh";
@@ -17,6 +19,7 @@
       source ${pkgs.zsh-autopair}/share/zsh/zsh-autopair/autopair.zsh
       source ${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh
       set -o vi
+      source ~/.cargo/env
       bindkey '^a' autosuggest-accept
       bindkey -v
       autopair-init
@@ -59,6 +62,12 @@
           if ! cd "$d"; then
               echo "Couldn't go up $limit dirs.";
           fi
+      }
+      function loop() {
+          while true; do
+              $1 ''${@:2}
+              read && clear
+          done
       }
     '';
   };

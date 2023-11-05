@@ -2,7 +2,7 @@
 if [ "$1" == "install" ]; then
     sudo echo "Escalating privileges"
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    echo "Sucessfully installed Homebrew";
+    echo "Successfully installed Homebrew";
 elif [ "$1" == "uninstall" ]; then
     prefix="$(brew --prefix)"
     /usr/bin/sudo echo "Escalating privileges"
@@ -11,7 +11,7 @@ elif [ "$1" == "uninstall" ]; then
     brew tap | xargs brew untap
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
     sudo rm -rf ${prefix}/Caskroom/ ${prefix}/Homebrew/ ${prefix}/Cellar
-    echo "Sucessfully uninstalled Homebrew";
+    echo "Successfully uninstalled Homebrew";
 else
     echo "Usage: $0 [install|uninstall]"
 fi

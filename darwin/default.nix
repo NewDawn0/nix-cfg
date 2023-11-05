@@ -1,12 +1,12 @@
 { pkgs, ... }: {
   services.nix-daemon.enable = true;
-  imports = [ ../shared/nix.nix ./system.nix ./brew.nix ./skhd-custom.nix ];
+  imports = [ ../shared/nix.nix ./system.nix ./brew.nix ./skhd ];
   environment = import ../shared/env.nix { inherit pkgs; };
 
   fonts = import ../shared/fonts.nix { inherit pkgs; };
   services = {
     emacs.enable = true;
-    # skhd = import ./skhd.nix { inherit pkgs; }; # Currently broken :(
+    # skhd = import ./skhd.nix { inherit pkgs; };
     yabai = import ./yabai.nix { inherit pkgs; };
     # khd = import ./khd.nix { inherit pkgs; };
     # spacebar = import ./spacebar.nix { inherit pkgs; };

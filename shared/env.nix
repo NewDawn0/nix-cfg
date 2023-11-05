@@ -1,13 +1,14 @@
 { pkgs, ... }:
 let
-  conf = import ./conf.nix;
+  conf = import ../conf.nix;
   inherit (pkgs) stdenv;
 in {
   shells = with pkgs; [ bash zsh ];
   loginShell = "${pkgs.zsh}/bin/zsh";
   shellAliases = {
+    vi = "${pkgs.neovim}/bin/nvim";
     nixse = "nix search nixpkgs";
-    nixgc = "nix-colllect-garbage";
+    nixgc = "sudo nix-collect-garbage -d";
     nixup = ''
       _this_=$(pwd)
       cd ${conf.nix-conf-dir}\
@@ -33,7 +34,7 @@ in {
     push = "${pkgs.git}/bin/git push";
     pull = "${pkgs.git}/bin/git pull";
     commit = "${pkgs.git}/bin/git commit -m";
-    ammend = "${pkgs.git}/bin/git commit --amend -m";
+    amend = "${pkgs.git}/bin/git commit --amend -m";
     git-root = "${pkgs.git}/bin/git rev-parse --show-toplevel";
     git-log = "${pkgs.git}/bin/git log --oneline --all";
     wmoff = "launchctl unload ~/Library/LaunchAgents/org.nixos.yabai.plist";
@@ -42,12 +43,14 @@ in {
   };
   extraInit = ''
     unset MAILCHECK
+    eval $(${pkgs.thefuck}/bin/thefuck --alias fuck)
     cat /dev/null > /var/mail/${conf.user}
   '';
   interactiveShellInit = ''
     clear
   '';
   variables = {
+    OPENSSL_DIR = "${pkgs.openssl.dev}";
     EDITOR = "nvim";
     PAGER = "less";
     LANG = "en_US.UTF-8";
@@ -57,6 +60,7 @@ in {
       "/nix/var/nix/profiles/default/bin/"
       "/share/zsh"
       "$HOME/.cargo/bin"
+      "/usr/local/texlive/2023/bin/universal-darwin/"
     ];
   };
   systemPackages = import ./sys-pkgs.nix { inherit pkgs; };

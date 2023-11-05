@@ -36,7 +36,7 @@ $ sudo launchctl kickstart -k system/org.nixos.nix-daemon
 @NOTE: Fix if $HOME is not owned by you when running command as sudo
 $ [TODO]
 
-=== Installing my config ===
+=== Installing my config ===sudo launchctl unload /Library/LaunchDaemon/org.nixos.nix-daemon.plist
 @INFO: Clone the repo
 $ git clone github.com/NewDawn0/nix-cfg ~/.nix-cfg
 
@@ -52,6 +52,9 @@ $ brew-manager install
 $ darwin-rebuild switch --flake .
 
 === Uninstalling NIX ===
+@INFO: Remove brew using brew-manager
+$ brew-manager uninstall
+
 @INFO: Related article `https://iohk.zendesk.com/hc/en-us/articles/4415830650265-Uninstall-nix-on-MacOS`
 @INFO: Remove Home-manager
 $ nix-channel --remove home-manager
@@ -82,7 +85,7 @@ $ sudo rm -rf /etc/nix/ ~/.nix-profile ~/.nix-defexpr ~/.nix-channels ~/.nixpkgs
 $ sudo dscl . delete /Groups/nixbld
 $ for i in $(seq 1 32); do sudo dscl . -delete /Users/_nixbld$i; done
 
-@NOTE: You should propably reboot now
+@NOTE: You should reboot now
 $ sudo reboot
 
 @INFO: Delete nix partition and /nix

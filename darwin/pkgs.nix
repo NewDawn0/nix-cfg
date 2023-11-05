@@ -2,5 +2,8 @@
 with pkgs;
 let
   shared = import ../shared/pkgs.nix { inherit pkgs; };
-  brew = pkgs.callPackage ../customPkgs/darwin/brew { inherit pkgs; };
-in shared ++ [ dockutil brew ]
+  brew = callPackage ../customPkgs/darwin/brew { inherit pkgs; };
+  later = callPackage ../customPkgs/darwin/later { inherit pkgs; };
+  click = callPackage ../customPkgs/darwin/click { inherit pkgs; };
+  walld = callPackage ../customPkgs/darwin/walld.nix { inherit pkgs; };
+in shared ++ [ dockutil darwin.libiconv brew later click walld ]

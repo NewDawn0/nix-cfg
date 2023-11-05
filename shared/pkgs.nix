@@ -1,24 +1,26 @@
 { pkgs, ... }:
-with pkgs; [
+with pkgs;
+let
+  note = callPackage ../customPkgs/shared/note { inherit pkgs; };
+  notflix = callPackage ../customPkgs/shared/notflix.nix { inherit pkgs; };
+in [
   # General
   act
   ani-cli
   (aspellWithDicts (dicts: with dicts; [ en en-computers en-science de fr ]))
   bash-completion
-  bat
-  btop
   gcc
   killall
   neofetch
+  onefetch
+  niv
   openssh
   wget
   zip
   # Apps
   jetbrains.idea-community
-  vscode
   discord
   gimp
-
   # Encryption
   cacert
   gnupg
@@ -33,17 +35,22 @@ with pkgs; [
   ffmpeg
   imagemagick
   # Shell
-  bat
-  bottom
+  hexedit
+  cpufetch
+  typos
   colima
   docker
   fd
   figlet
+  file
   fzf
   jq
+  pkg-config
   ripgrep
+  thefuck
   tree
-  tmux
+  gnused
+  ncdu
   # Langs
   go # Go
   nodePackages.nodemon # JavaScript
@@ -58,4 +65,8 @@ with pkgs; [
   jdk17 # Java
   # Git
   gh
+  git-lfs
+  # Custom
+  note
+  notflix
 ]

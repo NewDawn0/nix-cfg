@@ -20,9 +20,9 @@
   outputs =
     { self, nixpkgs, darwin, home-manager, nur, rust-overlay, ... }@inputs:
     let
-      conf = import ./shared/conf.nix;
+      conf = import ./conf.nix;
       pkgs = import nixpkgs { # cfg nixpkgs
-        inherit (conf) system;
+        inherit (conf.darwin) system;
         config = {
           allowUnfree = true;
           substitute = true;
@@ -31,17 +31,30 @@
           import ./shared/overlays.nix { inherit inputs rust-overlay nur; };
       };
     in {
-      darwinConfigurations.${conf.hostname} = darwin.lib.darwinSystem {
-        inherit (conf) system;
+      darwinConfigurations."${conf.hostname}" = darwin.lib.darwinSystem {
+        inherit (conf.darwin) system;
         inherit pkgs;
         modules = [
           ./darwin
           home-manager.darwinModules.home-manager
           {
-            users.users.${conf.user} =
-              import ./shared/home/user.nix { inherit pkgs; };
             home-manager = import ./shared/home { inherit pkgs; };
+            users.users.tom = {
+              home = "/Users/tom";
+              description = "NewDawn0 (Tom)";
+              name = "tom";
+              isHidden = false;
+              shell = pkgs.zsh;
+            };
           }
+          #   # users.users.${conf.user} =
+          #   #   import ./shared/home/user.nix { inherit pkgs; };
+          #   # home-manager = import ./shared/home { inherit pkgs; };
+          #   home-manager = {
+          #     useGlobalPkgs = true;
+          #     useUserPackages = true;
+          #     users.${conf.user}.home.stateVersion = "23.05";
+          #   };
         ];
       };
     };
