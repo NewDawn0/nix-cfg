@@ -1,0 +1,12 @@
+ollama pull wizard-vicuna-uncensored 
+ollama pull wizardcoder 
+ollama pull wizard-math 
+ollama pull wizardlm-uncensored 
+ollama pull codellama 
+ollama pull llama2-uncensored 
+ollama pull codeup 
+ollama pull everythinglm 
+ollama pull starcoder 
+ollama pull codebooga 
+ollama pull zephyr 
+ollama pull llama2
