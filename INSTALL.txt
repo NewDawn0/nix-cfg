@@ -38,7 +38,7 @@ $ [TODO]
 
 === Installing my config ===sudo launchctl unload /Library/LaunchDaemon/org.nixos.nix-daemon.plist
 @INFO: Clone the repo
-$ git clone github.com/NewDawn0/nix-cfg ~/.nix-cfg
+$ git clone https://github.com/NewDawn0/nix-cfg ~/.nix-cfg
 
 @INFO: Install the config to install the brew-manager package
 $ cd ~/.nix-cfg
