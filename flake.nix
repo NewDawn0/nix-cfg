@@ -47,14 +47,6 @@
               shell = pkgs.zsh;
             };
           }
-          #   # users.users.${conf.user} =
-          #   #   import ./shared/home/user.nix { inherit pkgs; };
-          #   # home-manager = import ./shared/home { inherit pkgs; };
-          #   home-manager = {
-          #     useGlobalPkgs = true;
-          #     useUserPackages = true;
-          #     users.${conf.user}.home.stateVersion = "23.05";
-          #   };
         ];
       };
     };
