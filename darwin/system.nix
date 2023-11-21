@@ -50,6 +50,8 @@ in {
         "com.apple.springing.enabled" = true;
         "com.apple.swipescrolldirection" = true;
         "com.apple.trackpad.enableSecondaryClick" = true;
+        "com.apple.TextEdit.RichText" = 0;
+        "com.apple.finder.QuitMenuItem" = 0;
       };
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
       alf = {
