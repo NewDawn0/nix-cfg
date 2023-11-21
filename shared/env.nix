@@ -15,7 +15,7 @@ in {
           && sudo nix-collect-garbage -d \
           && nix-channel --update \
           && nix flake update \
-          && darwin-rebuild switch --flake . \
+          && darwin-rebuild switch --flake . --fallback \
           && nix-store --optimise \
           && printf "\x1b[34;1mSYSTEM\x1b[0m -- Restart your system to apply all changes\n" \
           && cd $_this \
