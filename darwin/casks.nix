@@ -1,7 +1,7 @@
 [
   # Communication Tools
   "microsoft-excel"
-  "microsoft-powerpoint"
+  # "microsoft-powerpoint"
   "microsoft-outlook"
   "microsoft-word"
   "whatsapp"
@@ -28,4 +28,5 @@
 
   # Browsers
   "firefox"
+  "tor-browser"
 ]
