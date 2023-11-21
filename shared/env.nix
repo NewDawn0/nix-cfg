@@ -19,6 +19,8 @@ in {
           && cd $_this \
           && unset _this
     '';
+    ollamaup =
+      "ollama list | ${pkgs.gawk}/bin/awk -F':' 'NR>1 {print $1}' | ${pkgs.coreutils}/bin/xargs -I {} ollama pull {}";
     cargoup = "cargo install-update -a";
     cargoin = "cargo binstall";
     cargorm = "cargo uninstall";
@@ -31,6 +33,7 @@ in {
     mk-song =
       "${pkgs.yt-dlp}/bin/yt-dlp -x --audio-format mp3 --embed-thumbnail";
     add = "${pkgs.git}/bin/git add";
+    gdiff = "${pkgs.git}/bin/git diff";
     push = "${pkgs.git}/bin/git push";
     pull = "${pkgs.git}/bin/git pull";
     commit = "${pkgs.git}/bin/git commit -m";
@@ -50,6 +53,10 @@ in {
     clear
   '';
   variables = {
+    DYLD_LIBRARY_PATH =
+      if stdenv.isDarwin then [ "/System/Library/Frameworks/" ] else [ ];
+    LIBRARY_PATH = [ "${pkgs.libiconv}/lib" "${pkgs.darwin.libobjc}/lib" ]
+      ++ (if stdenv.isDarwin then [ "/System/Library/Frameworks/" ] else [ ]);
     OPENSSL_DIR = "${pkgs.openssl.dev}";
     EDITOR = "nvim";
     PAGER = "less";
