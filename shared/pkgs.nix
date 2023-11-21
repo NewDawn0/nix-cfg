@@ -41,7 +41,7 @@ in [
   colima
   docker
   fd
-  figlet
+  # figlet
   file
   fzf
   jq
