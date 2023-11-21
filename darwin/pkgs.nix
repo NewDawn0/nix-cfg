@@ -6,4 +6,4 @@ let
   later = callPackage ../customPkgs/darwin/later { inherit pkgs; };
   click = callPackage ../customPkgs/darwin/click { inherit pkgs; };
   walld = callPackage ../customPkgs/darwin/walld.nix { inherit pkgs; };
-in shared ++ [ dockutil darwin.libiconv brew later click walld ]
+in shared ++ [ dockutil brew later click walld ]
