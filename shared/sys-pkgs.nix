@@ -18,4 +18,6 @@ with pkgs; [
   rar
   yt-dlp
   zstd
+  # libs
+  libiconv
 ]
