@@ -62,10 +62,13 @@ in [
   virtualenv # Python
   # rustup # Rust
   # jre8 # Java
-  jdk17 # Java
+  # jdk17 # Java
+  openjdk
   # Git
   gh
   git-lfs
+  # Libs
+  # libiconv
   # Custom
   note
   notflix
