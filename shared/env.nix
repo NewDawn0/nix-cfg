@@ -12,9 +12,11 @@ in {
     nixup = ''
       _this_=$(pwd)
       cd ${conf.nix-conf-dir}\
+          && sudo nix-collect-garbage -d \
           && nix-channel --update \
           && nix flake update \
           && darwin-rebuild switch --flake . \
+          && nix-store --optimise \
           && printf "\x1b[34;1mSYSTEM\x1b[0m -- Restart your system to apply all changes\n" \
           && cd $_this \
           && unset _this
