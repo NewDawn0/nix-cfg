@@ -4,16 +4,23 @@
     global.autoUpdate = false;
     taps = [
       "homebrew/services"
+      "LouisBrunner/valgrind"
       {
         name = "lencx/chatgp";
         clone_target = "https://github.com/lencx/ChatGPT.git";
       }
     ];
-    brews = [{
-      name = "ollama";
-      args = [ "HEAD" ];
-      restart_service = "changed";
-    }];
+    brews = [
+      {
+        name = "ollama";
+        args = [ "HEAD" ];
+        restart_service = "changed";
+      }
+      {
+        name = "LouisBrunner/valgrind/valgrind";
+        args = [ "HEAD" ];
+      }
+    ];
     onActivation = {
       autoUpdate = true;
       cleanup = "zap";
