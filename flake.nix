@@ -1,53 +1,66 @@
 {
   description = "NewDawn0's darwin system configuration";
   inputs = {
-    #### Package sources ####
-    # -> Nix packages
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # -> Nix darwin
-    darwin.url = "github:LnL7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
-    # -> Nix user repo
-    nur.url = "github:nix-community/NUR";
-    # -> Home manager
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # Overlays
-    sf-mono-liga-src.url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
-    sf-mono-liga-src.flake = false;
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    nix.url = "github:nixos/nixpkgs/nixos-23.11";
+    nix-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nix";
+    };
+    home = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nix";
+    };
+    sf-mono-liga-src = {
+      url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
+      flake = false;
+    };
+    fh = {
+      url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
+      inputs.nixpkgs.follows = "nix";
+    };
   };
-  outputs =
-    { self, nixpkgs, darwin, home-manager, nur, rust-overlay, ... }@inputs:
+  outputs = { self, nix, nix-unstable, ... }@inputs:
     let
-      conf = import ./conf.nix;
-      pkgs = import nixpkgs { # cfg nixpkgs
-        inherit (conf.darwin) system;
-        config = {
-          allowUnfree = true;
-          substitute = true;
+      conf = import ./config.nix;
+      pkg-sets = import ./nix/nix/pkg-sets.nix { inherit inputs; };
+      mkSysAttrs = current:
+        let sets = pkg-sets.sets current.arch;
+        in {
+          system = current.arch;
+          inherit (sets) pkgs unstable;
+          inherit current;
+          specialArgs = {
+            inherit (sets) unstable;
+            inherit current inputs;
+          };
+          home-manager = import ./nix/shared/home {
+            inherit inputs current;
+            inherit (sets) pkgs unstable;
+          };
+          users.users.${current.user} = {
+            home = "${current.homePrefix}" + "${current.user}";
+            inherit (current) description;
+            name = current.user;
+            isHidden = false;
+            shell = pkg-sets.pkgs.zsh;
+          };
         };
-        overlays =
-          import ./shared/overlays.nix { inherit inputs rust-overlay nur; };
-      };
     in {
-      darwinConfigurations."${conf.hostname}" = darwin.lib.darwinSystem {
-        inherit (conf.darwin) system;
-        inherit pkgs;
-        modules = [
-          ./darwin
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = import ./shared/home { inherit pkgs; };
-            users.users.tom = {
-              home = "/Users/tom";
-              description = "NewDawn0 (Tom)";
-              name = "tom";
-              isHidden = false;
-              shell = pkgs.zsh;
-            };
-          }
-        ];
+      nixosConfigurations = { };
+      darwinConfigurations = {
+        NewDawn0 = let
+          inherit (mkSysAttrs conf.systems.NewDawn0)
+            system specialArgs pkgs home-manager users;
+        in inputs.darwin.lib.darwinSystem {
+          inherit system specialArgs pkgs;
+          modules = [
+            ./nix/shared
+            ./nix/darwin
+            inputs.home.darwinModules.home-manager
+            { inherit home-manager users; }
+          ];
+        };
       };
     };
 }
