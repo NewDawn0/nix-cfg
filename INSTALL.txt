@@ -11,9 +11,8 @@
 @INFO: Prerequisites: Xcode CLI tools
 $ xcode-select --install
 
-@INFO: Install nix using the detarminate systems installer or the nix install pick either one
-1) $ sh <(curl -L https://nixos.org/nix/install)
-2) $ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+@INFO: Install nix
+$ sh <(curl -L https://nixos.org/nix/install)
 
 @INFO: Install nix-darwin
 @INFO: Open a new shell for this step 
