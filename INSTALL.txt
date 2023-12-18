@@ -32,9 +32,6 @@ $ nix-channel --update
 $ sudo launchctl setenv NIX_SSL_CERT_FILE $NIX_SSL_CERT_FILE
 $ sudo launchctl kickstart -k system/org.nixos.nix-daemon
 
-@NOTE: Fix if $HOME is not owned by you when running command as sudo
-$ [TODO]
-
 === Installing my config ===sudo launchctl unload /Library/LaunchDaemon/org.nixos.nix-daemon.plist
 @INFO: Clone the repo
 $ git clone https://github.com/NewDawn0/nix-cfg ~/.nix-cfg
