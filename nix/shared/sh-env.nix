@@ -13,7 +13,7 @@ in {
       gadd = "git add";
       gamend = "git commit --amend -m";
       gstat = "git status";
-      gcommit = "git commit -m";
+      gcom = "git commit -m";
       gdiff = "git diff";
       glog = "git log --oneline --all";
       gpull = "git pull";
