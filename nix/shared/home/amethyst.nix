@@ -14,7 +14,7 @@
 
       # Key - Mods
       mod1 = [ "option" ];
-      mod2 = [ "option" "shift" ];
+      mod2 = [ "command" "shift" ];
       mod3 = [ "control" ];
       mod4 = [ "control" "shift" ];
       mod5 = [ "control" "option" ];

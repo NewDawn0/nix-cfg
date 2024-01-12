@@ -45,6 +45,7 @@ in {
       wmoff = "launchctl unload ~/Library/LaunchAgents/org.nixos.yabai.plist";
       wmon = "launchctl load ~/Library/LaunchAgents/org.nixos.yabai.plist";
       wmre = "wmoff && wmon";
+      preview = "qlmanage -p $1";
     };
     extraInit = ''
       cat /dev/null > /var/mail/${current.user}
