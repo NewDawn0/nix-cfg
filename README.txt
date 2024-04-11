@@ -1,3 +1,4 @@
+This project is deprecated please use => https://github/NewDawn0/nix-config
        _                 __       
  _ __ (_)_  __      ___ / _| __ _ 
 | '_ \| \ \/ /____ / __| |_ / _` |
